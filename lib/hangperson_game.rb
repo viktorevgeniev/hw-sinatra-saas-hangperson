@@ -69,3 +69,4 @@ class HangpersonGame
   end
 
 end
+ 

@@ -19,22 +19,22 @@ class HangpersonGame
   end
   
 
-  
   def guess(letter)
     if(letter =~ /[a-z]/i)
-      valid = letter.downcase
+      @valid = letter.downcase
     elsif(letter.nil? || letter =~ /^\s*.*$/)
-      raise ArgumentError.new("Invalid letter")
+      raise ArgumentError.new
+      @valid = false
     end
-    if word.include?(valid)
-      if guesses.exclude?(valid)
-        guesses << valid
+    if @word.include?(@valid)
+      if @guesses.exclude?(@valid)
+        @guesses << @valid
       else
         return false
       end
     else
-      if wrong_guesses.exclude?(valid)
-        wrong_guesses << valid
+      if @wrong_guesses.exclude?(@valid)
+        @wrong_guesses << @valid
       else
       return false
       end
@@ -42,21 +42,23 @@ class HangpersonGame
   end
   
   def word_with_guesses
-    result = ''
-    
-    word.split('').each do |letter|
-      if guesses.include?(letter)
-        result << letter
+
+    @result = ''
+
+    @word.split('').each do |letter|
+      if @guesses.include?(letter)
+        @result << letter
       else
-        result << '-'
+        @result << '-'
       end
     end
     
-    result
+    @result
   end
   
+  
   def check_win_or_lose
-    return :lose if wrong_guesses.length >= 7
+    return :lose if @wrong_guesses.length >= 7
     return :win unless word_with_guesses.include?('-')
     :play
   end

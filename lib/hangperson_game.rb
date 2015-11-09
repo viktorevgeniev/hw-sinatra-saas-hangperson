@@ -20,10 +20,10 @@ class HangpersonGame
   
 
   def guess(letter)
-    if(letter =~ /[a-z]/i)
+    if(letter =~ /^[a-z]$/i)
       @valid = letter.downcase
-    elsif(letter.nil? || letter =~ /^\s*.*$/)
-      raise ArgumentError.new
+    else
+      raise ArgumentError, "Invalid"
       @valid = false
     end
     if @word.include?(@valid)

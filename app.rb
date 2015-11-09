@@ -47,7 +47,6 @@ class HangpersonApp < Sinatra::Base
       flash[:message] = 'You have already used that letter.' unless result
     end
     
-
     redirect '/show'
   end
   
@@ -72,12 +71,11 @@ class HangpersonApp < Sinatra::Base
   
   get '/win' do
     ### YOUR CODE HERE ###
-    erb :win # You may change/remove this line
+    erb :win if @game.check_win_or_lose == :win
   end
   
   get '/lose' do
     ### YOUR CODE HERE ###
-    erb :lose # You may change/remove this line
+    erb :lose if @game.check_win_or_lose == :lose
   end
-  
 end
